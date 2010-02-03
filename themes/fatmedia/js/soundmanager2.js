@@ -19,7 +19,7 @@ function SoundManager(smURL,smID) {
   this.waitForWindowLoad = false;  // force SM2 to wait for window.onload() before trying to call soundManager.onload()
   this.nullURL = 'data/null.mp3';  // path to "null" (empty) MP3 file, used to unload sounds (Flash 8 only)
   this.allowPolling = true;        // allow flash to poll for status update (required for "while playing", peak, sound spectrum functions to work.)
-  this.useMovieStar = false;	   // enable support for Flash 9.0r115+ (codename "MovieStar") MPEG4 video formats (M4V, FLV, MOV etc.)
+  this.useMovieStar = false;     // enable support for Flash 9.0r115+ (codename "MovieStar") MPEG4 video formats (M4V, FLV, MOV etc.)
 
   this.defaultOptions = {
     'autoLoad': false,             // enable automatic loading (otherwise .load() will be called on demand with .play(), the latter being nicer on bandwidth - if you want to .load yourself, you also can)
@@ -43,7 +43,7 @@ function SoundManager(smURL,smID) {
     'position': null,              // offset (milliseconds) to seek to within loaded sound data.
     'pan': 0,                      // "pan" settings, left-to-right, -100 to 100
     'volume': 100,                 // self-explanatory. 0-100, the latter being the max.
-    'isMovieStar': null			   // Flash 9 "MovieStar" support. Null (default) = auto detect based on URL. true = force on, ignore URL 
+    'isMovieStar': null         // Flash 9 "MovieStar" support. Null (default) = auto detect based on URL. true = force on, ignore URL 
   };
 
   this.flash9Options = {           // Flash 9-only options, merged into defaultOptions if applicable
@@ -123,7 +123,7 @@ function SoundManager(smURL,smID) {
     if (_s.flashVersion > 8 && _s.useMovieStar) {
       _s.filePatterns.flash9 = new RegExp('.(mp3|'+_s.netStreamTypes.join('|')+')','i');
     } else {
-	  _s.useMovieStar = false;
+    _s.useMovieStar = false;
     }
     _s.filePattern = _s.filePatterns[(_s.flashVersion!=8?'flash9':'flash8')];
     _s.movieURL = (_s.flashVersion==8?'soundmanager2.swf':'soundmanager2_flash9.swf');
@@ -173,18 +173,18 @@ function SoundManager(smURL,smID) {
       return _s.sounds[_tO.id];
     };
     if (_s.flashVersion > 8 && _s.useMovieStar) {
-	  if (_tO.isMovieStar == null) {
-	    _tO.isMovieStar = (_tO.url.match(_s.netStreamPattern)?true:false);
-	  }
-	  if (_tO.isMovieStar) {
-	    _s._wD('soundManager.createSound(): using MovieStar handling');
-	  }
-	  if (_tO.isMovieStar && (_tO.usePeakData || _tO.useWaveformData || _tO.useEQData)) {
-	    _s._wD('Warning: peak/waveform/eqData features unsupported for non-MP3 formats');
-	    _tO.usePeakData = false;
-		_tO.useWaveformData = false;
-		_tO.useEQData = false;
-	  }	
+    if (_tO.isMovieStar == null) {
+      _tO.isMovieStar = (_tO.url.match(_s.netStreamPattern)?true:false);
+    }
+    if (_tO.isMovieStar) {
+      _s._wD('soundManager.createSound(): using MovieStar handling');
+    }
+    if (_tO.isMovieStar && (_tO.usePeakData || _tO.useWaveformData || _tO.useEQData)) {
+      _s._wD('Warning: peak/waveform/eqData features unsupported for non-MP3 formats');
+      _tO.usePeakData = false;
+    _tO.useWaveformData = false;
+    _tO.useEQData = false;
+    }  
     };
     _s.sounds[_tO.id] = new SMSound(_tO);
     _s.soundIDs[_s.soundIDs.length] = _tO.id;
@@ -202,12 +202,12 @@ function SoundManager(smURL,smID) {
       },20);
     }
     if (_tO.autoPlay) {
-	  if (_s.flashVersion == 8) {
-	    _s.sounds[_tO.id].playState = 1; // we can only assume this sound will be playing soon.
-	  } else {
-	    _s.sounds[_tO.id].play();	
-	  }
-	}
+    if (_s.flashVersion == 8) {
+      _s.sounds[_tO.id].playState = 1; // we can only assume this sound will be playing soon.
+    } else {
+      _s.sounds[_tO.id].play();  
+    }
+  }
     return _s.sounds[_tO.id];
   };
 
@@ -216,7 +216,7 @@ function SoundManager(smURL,smID) {
     if (!_s._idCheck(sID)) return false;
     for (var i=0; i<_s.soundIDs.length; i++) {
       if (_s.soundIDs[i] == sID) {
-	    _s.soundIDs.splice(i,1);
+      _s.soundIDs.splice(i,1);
         continue;
       };
     };
@@ -303,7 +303,7 @@ function SoundManager(smURL,smID) {
   };
 
   this.mute = function(sID) {
-	if (typeof sID != 'string') sID = null;
+  if (typeof sID != 'string') sID = null;
     if (!sID) {
       var o = null;
       _s._wD('soundManager.mute(): Muting all sounds');
@@ -356,73 +356,73 @@ function SoundManager(smURL,smID) {
   };
 
   this.handleFlashBlock = function(bForce) {
-	// Mozilla "flashblock" extension may prevent SM2 from starting up - try to notify user.
-	function showNagbar() {
-	  var o = document.getElementById('sm2-flashblock');
-	  if (!o) {
-		try {
-		  // var o = document.createElement('div');
-		  var oC = document.getElementById('sm2-container');
-		  if (oC) {
-			// existing movie container
-			oC.parentNode.removeChild(oC);
-		  }
-		  var oBar = document.createElement('div');
-		  oBar.innerHTML = _s.flashBlockHelper.message.join('').replace('<!-- [flash] -->',_s._html);
-		  _s._getDocument().appendChild(oBar);
-		  window.setTimeout(function(){
-		    var oIco = document.getElementById('sm2-flashmovie').getElementsByTagName('div')[0];
-		  if (oIco) {
-		    oIco.style.background = 'url(chrome://flashblock/skin/flash-disabled-16.png) 0px 0px no-repeat';
-		    oIco.style.border = 'none';
-		    oIco.style.minWidth = '';
-  	            oIco.style.minHeight = '';
-		    oIco.style.width = '16px';
-		    oIco.style.height = '16px';
-		    oIco.style.marginTop = '4px';
-		    oIco.onmouseover = null; // holy crap, that works? damn.
-		    oIco.onmouseout = null;
-		    oIco.onclick = null; // only make right-click work. Unreal. ;)
-		    document.getElementById('sm2-flashmovie').onclick = oIco.onclick;
-		  } else {
+  // Mozilla "flashblock" extension may prevent SM2 from starting up - try to notify user.
+  function showNagbar() {
+    var o = document.getElementById('sm2-flashblock');
+    if (!o) {
+    try {
+      // var o = document.createElement('div');
+      var oC = document.getElementById('sm2-container');
+      if (oC) {
+      // existing movie container
+      oC.parentNode.removeChild(oC);
+      }
+      var oBar = document.createElement('div');
+      oBar.innerHTML = _s.flashBlockHelper.message.join('').replace('<!-- [flash] -->',_s._html);
+      _s._getDocument().appendChild(oBar);
+      window.setTimeout(function(){
+        var oIco = document.getElementById('sm2-flashmovie').getElementsByTagName('div')[0];
+      if (oIco) {
+        oIco.style.background = 'url(chrome://flashblock/skin/flash-disabled-16.png) 0px 0px no-repeat';
+        oIco.style.border = 'none';
+        oIco.style.minWidth = '';
+                oIco.style.minHeight = '';
+        oIco.style.width = '16px';
+        oIco.style.height = '16px';
+        oIco.style.marginTop = '4px';
+        oIco.onmouseover = null; // holy crap, that works? damn.
+        oIco.onmouseout = null;
+        oIco.onclick = null; // only make right-click work. Unreal. ;)
+        document.getElementById('sm2-flashmovie').onclick = oIco.onclick;
+      } else {
                     return false;
                   }
-		  },1);
-  		} catch(e) {
-		  // oh noes, DOM fail!
-		  _s._wD('soundManager.handleFlashblock: DOM append failed - may be XHTML-related.');
-		  return false;
-		}
-	  } else {
+      },1);
+      } catch(e) {
+      // oh noes, DOM fail!
+      _s._wD('soundManager.handleFlashblock: DOM append failed - may be XHTML-related.');
+      return false;
+    }
+    } else {
         // maybe you made your own nag bar, including the flash movie?
         o.style.display = 'block';
-	  };
-	  this.onload = null;
-	};
-	  _s._wD('soundManager.handleFlashBlock(): Showing info bar');
+    };
+    this.onload = null;
+  };
+    _s._wD('soundManager.handleFlashBlock(): Showing info bar');
     if (bForce) {
-	  showNagbar(); // for dev/testing
-	  return false;
-	};
-	if (!_s.isGecko) return false; // try to target only extension-supporting UAs
-	if (window.location.toString().match(/\#noflashblock/i)) {
-	  _s._wD('flashBlock nagbar disabled by URL - exiting');
-	  return false; // if user already clicked "go away", and reloaded
-	}
-	// ok, now for something insanely hackish/brittle: flashblock detect via loading from chrome
-	var chromeURL = 'chrome://flashblock/skin/flash-disabled-16.png';
-	var img = new Image();
-	img.style.position = 'absolute';
-	img.style.left = '-256px';
-	img.style.top = '-256px';
-	img.onload = showNagbar;
-	img.onerror = function() {this.onerror = null;} // no flashblock, or image URL changed etc. (d'oh)
-	img.src = chromeURL;
+    showNagbar(); // for dev/testing
+    return false;
+  };
+  if (!_s.isGecko) return false; // try to target only extension-supporting UAs
+  if (window.location.toString().match(/\#noflashblock/i)) {
+    _s._wD('flashBlock nagbar disabled by URL - exiting');
+    return false; // if user already clicked "go away", and reloaded
+  }
+  // ok, now for something insanely hackish/brittle: flashblock detect via loading from chrome
+  var chromeURL = 'chrome://flashblock/skin/flash-disabled-16.png';
+  var img = new Image();
+  img.style.position = 'absolute';
+  img.style.left = '-256px';
+  img.style.top = '-256px';
+  img.onload = showNagbar;
+  img.onerror = function() {this.onerror = null;} // no flashblock, or image URL changed etc. (d'oh)
+  img.src = chromeURL;
     _s._getDocument().appendChild(img);
   };
 
   this.canPlayURL = function(sURL) {
-    return (sURL?(sURL.match(_s.filePattern)?true:false):null);	
+    return (sURL?(sURL.match(_s.filePattern)?true:false):null);  
   };
 
   this.getSoundById = function(sID,suppressDebug) {
@@ -489,7 +489,7 @@ function SoundManager(smURL,smID) {
     if (_s._didAppend && _s._appendSuccess) return false; // ignore if already succeeded
     if (window.location.href.indexOf('debug=1')+1) _s.debugMode = true; // allow force of debug mode via URL
     _s._didAppend = true;
-	
+  
     // safety check for legacy (change to Flash 9 URL)
     _s._setVersionInfo();
     var remoteURL = (smURL?smURL:_s.url);
@@ -751,10 +751,10 @@ function SoundManager(smURL,smID) {
       _s.o._externalInterfaceTest(false); // attempt to talk to Flash
       // _s._wD('Flash ExternalInterface call (JS-Flash) OK',1);
       if (!_s.allowPolling) {
-	    _s._wD('Polling (whileloading/whileplaying support) is disabled.',1);
-	  }
+      _s._wD('Polling (whileloading/whileplaying support) is disabled.',1);
+    }
       _s.setPolling(true);
-	  if (!_s.debugMode) _s.o._disableDebug();
+    if (!_s.debugMode) _s.o._disableDebug();
       _s.enabled = true;
     } catch(e) {
       _s._failSafely();
@@ -842,14 +842,14 @@ function SoundManager(smURL,smID) {
     for (stuff in _t.options) {
       if (_t.options[stuff] != null) {
         if (_t.options[stuff] instanceof Function) {
-	  // handle functions specially
-	  sF = _t.options[stuff].toString();
-	  sF = sF.replace(/\s\s+/g,' '); // normalize spaces
-	  sfBracket = sF.indexOf('{');
-	  msg[msg.length] = ' '+stuff+': {'+sF.substr(sfBracket+1,(Math.min(Math.max(sF.indexOf('\n')-1,maxLength),maxLength))).replace(/\n/g,'')+'... }';
-	} else {
-	  msg[msg.length] = ' '+stuff+': '+_t.options[stuff];
-	};
+    // handle functions specially
+    sF = _t.options[stuff].toString();
+    sF = sF.replace(/\s\s+/g,' '); // normalize spaces
+    sfBracket = sF.indexOf('{');
+    msg[msg.length] = ' '+stuff+': {'+sF.substr(sfBracket+1,(Math.min(Math.max(sF.indexOf('\n')-1,maxLength),maxLength))).replace(/\n/g,'')+'... }';
+  } else {
+    msg[msg.length] = ' '+stuff+': '+_t.options[stuff];
+  };
       };
     };
     _s._wD('SMSound() merged options: {\n'+msg.join(', \n')+'\n}');
@@ -914,11 +914,11 @@ function SoundManager(smURL,smID) {
     _t.readyState = 1;
     _t.playState = (oOptions.autoPlay?1:0); // if autoPlay, assume "playing" is true (no way to detect when it actually starts in Flash unless onPlay is watched?)
     try {
-	  if (_s.flashVersion==8) {
-	    _s.o._load(_t.sID,_t._iO.url,_t._iO.stream,_t._iO.autoPlay,(_t._iO.whileloading?1:0));
-	  } else {
+    if (_s.flashVersion==8) {
+      _s.o._load(_t.sID,_t._iO.url,_t._iO.stream,_t._iO.autoPlay,(_t._iO.whileloading?1:0));
+    } else {
         _s.o._load(_t.sID,_t._iO.url,_t._iO.stream?true:false,_t._iO.autoPlay?true:false); // ,(_tO.whileloading?true:false)
-	  };
+    };
     } catch(e) {
       _s._wD('SMSound.load(): JS-Flash communication failed.',2);
       _s.onerror();
@@ -1053,12 +1053,12 @@ function SoundManager(smURL,smID) {
   };
 
   this.mute = function() {
-	_t.muted = true;
+  _t.muted = true;
     _s.o._setVolume(_t.sID,0);
   };
 
   this.unmute = function() {
-	_t.muted = false;
+  _t.muted = false;
     _s.o._setVolume(_t.sID,typeof _t._iO.volume != 'undefined'?_t._iO.volume:_t.options.volume);
   };
 
@@ -1096,28 +1096,28 @@ function SoundManager(smURL,smID) {
   this._whileplaying = function(nPosition,oPeakData,oWaveformData,oEQData) {
     if (isNaN(nPosition) || nPosition == null) return false; // Flash may return NaN at times
     _t.position = nPosition;
-	if (_t._iO.usePeakData && typeof oPeakData != 'undefined' && oPeakData) {
-	  _t.peakData = {
-	   left: oPeakData.leftPeak,
-	   right: oPeakData.rightPeak
-	  };
-	};
-	if (_t._iO.useWaveformData && typeof oWaveformData != 'undefined' && oWaveformData) {
-	  _t.waveformData = oWaveformData;
-	  /*
-	  _t.spectrumData = {
-	   left: oSpectrumData.left.split(','),
-	   right: oSpectrumData.right.split(',')
-	  }
-	  */
-	};
-	if (_t._iO.useEQData && typeof oEQData != 'undefined' && oEQData) {
-	  _t.eqData = oEQData;
-	};
+  if (_t._iO.usePeakData && typeof oPeakData != 'undefined' && oPeakData) {
+    _t.peakData = {
+     left: oPeakData.leftPeak,
+     right: oPeakData.rightPeak
+    };
+  };
+  if (_t._iO.useWaveformData && typeof oWaveformData != 'undefined' && oWaveformData) {
+    _t.waveformData = oWaveformData;
+    /*
+    _t.spectrumData = {
+     left: oSpectrumData.left.split(','),
+     right: oSpectrumData.right.split(',')
+    }
+    */
+  };
+  if (_t._iO.useEQData && typeof oEQData != 'undefined' && oEQData) {
+    _t.eqData = oEQData;
+  };
     if (_t.playState == 1) {
       if (_t._iO.whileplaying) {
-	    _t._iO.whileplaying.apply(_t); // flash may call after actual finish
-	  };
+      _t._iO.whileplaying.apply(_t); // flash may call after actual finish
+    };
       if (_t.loaded && _t._iO.onbeforefinish && _t._iO.onbeforefinishtime && !_t.didBeforeFinish && _t.duration-_t.position <= _t._iO.onbeforefinishtime) {
         _s._wD('duration-position &lt;= onbeforefinishtime: '+_t.duration+' - '+_t.position+' &lt= '+_t._iO.onbeforefinishtime+' ('+(_t.duration-_t.position)+')');
         _t._onbeforefinish();

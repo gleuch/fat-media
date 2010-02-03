@@ -1,44 +1,36 @@
 
-About
------
-
-Shi Tao is serving a 10-year sentence in prison for writing articles calling for political reform in China. Yahoo helped put him there.
-
-FuckFlickr is open-source image gallery software that won’t narc you out. We created it as an alternative to hosting your photos on a certain Yahoo-owned photo sharing site.
-
-No database required; just upload it and put images in the data directory.
-
-Demo: http://fffff.at/fuckflickr
+ ____     ______     ______                            __                  
+/\  _`\  /\  _  \   /\__  _\        /'\_/`\           /\ \  __             
+\ \ \L\_\\ \ \L\ \  \/_/\ \/       /\      \     __   \_\ \/\_\     __     
+ \ \  _\/ \ \  __ \    \ \ \       \ \ \__\ \  /'__`\ /'_` \/\ \  /'__`\   
+  \ \ \/ __\ \ \/\ \  __\ \ \  __   \ \ \_/\ \/\  __//\ \L\ \ \ \/\ \L\.\_ 
+   \ \_\/\_\\ \_\ \_\/\_\\ \_\/\_\   \ \_\\ \_\ \____\ \___,_\ \_\ \__/.\_\
+    \/_/\/_/ \/_/\/_/\/_/ \/_/\/_/    \/_/ \/_/\/____/\/__,_ /\/_/\/__/\/_/
 
 
-FREE SHI TAO
------
-→ BBC: Yahoo is a Narc
-  <http://news.bbc.co.uk/1/hi/world/asia-pacific/4221538.stm>
-→ Wikipedia: List of Chinese Dissidents
-  <http://en.wikipedia.org/wiki/List_of_Chinese_dissidents>
-→ Video: the best way to end your Flickr career 
-  <http://www.vimeo.com/421557>
+______________________________________________________________________-----
+
+Based on previous work on FAT Media <http://fatmedia.com>, originally
+written by Jamie Wilkinson <http://jamiedubs.com>, 
+Theo Watson <http://muonics.net>, and Greg Leuch <http://gleuch.com>.
+
+A F.A.T. Lab Production <http://fffff.at>.
+
+______________________________________________________________________-----
 
 
 Installation
------
-
-1. unzip and upload the “fuckflickr” directory to your server
-2. put images or folders w/ images into the “data” subdirectory
-3. visit yourdomain.com/fuckflickr — the first visit will generate thumbnails!
+  1. Unzip and upload the “fat-media” directory to your server.
+  2. Put audio, video, and images or folders into the /data subdirectory.
+  3. Visit yourdomain.com/fat-media — the first visit will 
+     generate thumbnails!
 
 Bonus:
-4. after the first visit, download and open a folder's info.yml -- you can add titles & descriptions
-5. customize config.php to your liking
+  4. After the first visit, download and open a folder's info.yml to edit
+     titles & descriptions.
+  5. Customize config.php to your liking and create/edit your theme.
 
 
-Authors
------
-Jamie Wilkinson <http://jamiedubs.com>
-Theo Watson <http://muonics.net>
-Greg Leuch <http://gleuch.com>
+______________________________________________________________________-----
 
-A FFFFFAT Lab Production
-http://fffff.at
 

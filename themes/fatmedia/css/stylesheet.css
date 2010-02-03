@@ -5,7 +5,7 @@
 ##  |   _||  |  |  __||    <|   _|  |  ||  __||    <|   _|  ##
 ##  |__|  |_____|____||__|__|__| |__|__||____||__|__|__|    ##
 ##############################################################
-        default fuckflickr theme - HACK AWAY MOFO
+        default fatmedia theme - HACK AWAY MOFO
 */
 
 /******** general *******/
@@ -62,10 +62,10 @@ p, h1, h2, h3, h4, h5 {
 }
 #header #logo a img {background-color: #FFFFFF;}
 #header #logo, /* humping graphic */
-#header #fuckflickr-info { /* "why we should boycott..." */
+#header #fatmedia-info { /* "why we should boycott..." */
   float: left;
 }
-#header #fuckflickr-info {
+#header #fatmedia-info {
   color: #ff0085;
   margin: 25px 0 0 30px;
   width: 270px;

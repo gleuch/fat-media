@@ -115,7 +115,7 @@ ul.playlist {
 ul.playlist li {
  /* assume all items will be sounds rather than wait for onload etc. in this example.. may differ for your uses. */
  
- float: none; /* fuckflickr mods...*/
+ float: none; /* fatmedia mods...*/
  height: auto;
  margin: 0;
  padding: 0;
@@ -134,7 +134,7 @@ ul.playlist li {
 }
 
 ul.playlist li a {
- padding:0.25em 0.5em 0.25em 0.5em; /* fflickr */
+ padding:0.25em 0.5em 0.25em 0.5em;
  display:block;
  text-decoration:none;
  font-weight:normal;
@@ -166,7 +166,7 @@ ul.playlist li:hover a {
 ul.playlist li.sm2_playing,
 ul.playlist li.sm2_playing:hover {
 /* background-color:#6699cc;*/
-  background-color: #ff0085; /* fflickr */
+  background-color: #ff0085;
 }
 
 ul.playlist li.sm2_paused {

@@ -1,9 +1,12 @@
-##############################################################
-##    ___              __     ___ __ __        __           ##
-##  .'  _|.--.--.----.|  |--.'  _|  |__|.----.|  |--.----.  ##
-##  |   _||  |  |  __||    <|   _|  |  ||  __||    <|   _|  ##
-##  |__|  |_____|____||__|__|__| |__|__||____||__|__|__|    ##
-##############################################################
+#   ____     ______     ______                            __                  
+#  /\  _`\  /\  _  \   /\__  _\        /'\_/`\           /\ \  __             
+#  \ \ \L\_\\ \ \L\ \  \/_/\ \/       /\      \     __   \_\ \/\_\     __     
+#   \ \  _\/ \ \  __ \    \ \ \       \ \ \__\ \  /'__`\ /'_` \/\ \  /'__`\   
+#    \ \ \/ __\ \ \/\ \  __\ \ \  __   \ \ \_/\ \/\  __//\ \L\ \ \ \/\ \L\.\_ 
+#     \ \_\/\_\\ \_\ \_\/\_\\ \_\/\_\   \ \_\\ \_\ \____\ \___,_\ \_\ \__/.\_\
+#      \/_/\/_/ \/_/\/_/\/_/ \/_/\/_/    \/_/ \/_/\/____/\/__,_ /\/_/\/__/\/_/
+#       ______________________________________________________________________-
+#  
 
 ## good hosts have all this on already
 #DirectoryIndex index.php index.html
@@ -12,15 +15,15 @@
 
 ## for clean urls, uncomment all below lines
 <IfModule mod_rewrite.c>
-	RewriteEngine On
-	RewriteCond %{REQUEST_FILENAME} -f [OR]
-	RewriteCond %{REQUEST_FILENAME} -d
-	RewriteRule ^(.+) - [PT,L]
+  RewriteEngine On
+  RewriteCond %{REQUEST_FILENAME} -f [OR]
+  RewriteCond %{REQUEST_FILENAME} -d
+  RewriteRule ^(.+) - [PT,L]
 
-	RewriteRule ^(.*) index.php
+  RewriteRule ^(.*) index.php
 
-	#RewriteCond %{HTTP:Authorization}  !^$
-	#RewriteRule .* - [E=REMOTE_USER:%{HTTP:Authorization}]
+  #RewriteCond %{HTTP:Authorization}  !^$
+  #RewriteRule .* - [E=REMOTE_USER:%{HTTP:Authorization}]
 </IfModule>
 
 <Files info.yml>

@@ -1,4 +1,4 @@
-// FUCK FLICKR application javascript
+// FAT Media application javascript
 
 // console decoy
 if (!("console" in window) || !("firebug" in console)) {
@@ -26,21 +26,21 @@ $(document).ready(function(){
   // setting toggle handlerr
   $('input#lightbox').change(function(){
     lightboxInit();
-    createCookie('fuckflickr_lightbox', status, 365);  
+    createCookie('fatmedia_lightbox', status, 365);  
   });
   
   $('select#ff_sort').change(function(){
     var ff_sort = this.options[this.selectedIndex].value;    
     var basename = ff_sort.match(/[\/|\\]([^\\\/]+)\/$/); // ff_sort is the URL to redirect to
     if(basename[1] == 'name') 
-      createCookie('fuckflickr_sort', 'name', 365);
+      createCookie('fatmedia_sort', 'name', 365);
     else
-      createCookie('fuckflickr_sort', 'date', 365); // FIXME should allow for more options than these, really. need to impose a /sort/date too
+      createCookie('fatmedia_sort', 'date', 365); // FIXME should allow for more options than these, really. need to impose a /sort/date too
     if (ff_sort != '' && ff_sort != '-1') 
       location.href = ff_sort;
   });
-	
-	
+  
+  
   // anchor scroll-to and highlighting
   $('a[href*=#]').click(function() {
     if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'') && location.hostname == this.hostname) {
@@ -48,9 +48,9 @@ $(document).ready(function(){
       $target = $target.length && $target
       || $('[name=' + this.hash.slice(1) +']');
 
-  	  // switch selected class
-  	  $('#images .selected').removeClass('selected');
-  	  $('#img_'+ this.hash.substr(1).replace(/\./, '_')).addClass('selected');
+      // switch selected class
+      $('#images .selected').removeClass('selected');
+      $('#img_'+ this.hash.substr(1).replace(/\./, '_')).addClass('selected');
 
       if ($target.length) {
         var targetOffset = $target.offset().top;
@@ -79,13 +79,13 @@ function lightboxInit(){
     // imgLoader.src = "images/ajax-loader.gif";
     // engage thickboxing
     images.click(function(){
-    	var t = this.title || this.name || null;
-    	var a = this.href || this.alt;
-    	var g = this.rel || false;
+      var t = this.title || this.name || null;
+      var a = this.href || this.alt;
+      var g = this.rel || false;
       tb_show(t,a,g);
       // TB_show(t,a,g);
-    	this.blur();
-    	return false;
+      this.blur();
+      return false;
     });
   }
   else {
@@ -99,26 +99,26 @@ function lightboxInit(){
 */
 function createCookie(name, value, days) {
   console.log("createCookie: "+name+" "+value+" "+days);
-	if (days) {
-		var date = new Date();
-		date.setTime(date.getTime()+(days*24*60*60*1000));
-		var expires = "; expires="+date.toGMTString();
-	}
-	else var expires = "";
-	document.cookie = name+"="+value+expires+"; path=/";
+  if (days) {
+    var date = new Date();
+    date.setTime(date.getTime()+(days*24*60*60*1000));
+    var expires = "; expires="+date.toGMTString();
+  }
+  else var expires = "";
+  document.cookie = name+"="+value+expires+"; path=/";
 }
 function readCookie(name) {
-	var nameEQ = name + "=";
-	var ca = document.cookie.split(';');
-	for(var i=0;i < ca.length;i++) {
-		var c = ca[i];
-		while (c.charAt(0)==' ') c = c.substring(1,c.length);
-		if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
-	}
-	return null;
+  var nameEQ = name + "=";
+  var ca = document.cookie.split(';');
+  for(var i=0;i < ca.length;i++) {
+    var c = ca[i];
+    while (c.charAt(0)==' ') c = c.substring(1,c.length);
+    if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+  }
+  return null;
 }
 function eraseCookie(name) {
-	createCookie(name,"",-1);
+  createCookie(name,"",-1);
 }
 
 
@@ -129,38 +129,38 @@ function eraseCookie(name) {
 /* FLOWRPLAYERIFICATION */
 /*
  flashembed("video_<?php print $index ?>", 
-	{
-		src:'<?php echo $this->dir_tmpl ?>/flowplayer/FlowPlayerDark.swf',
-		// width: <?php echo $this->video_width ?>, 
-		// height: <?php echo $this->video_height ?>,
-	},
-	
-	// second argument is Flowplayer specific configuration. See full list:
-	// http://flowplayer.org/player/configuration.html
-	{config: { 
-		videoFile: '<?php print $this->urlFor('web', $item) ?>.flv',
-		// videoLink: 'TODO',
-		
-		// playlist?
-	  // { playList: [
-	  //    { url: 'http://flowplayer.org/skiing.mp4' },
-	  //    { url: 'http://flowplayer.org/river.mp4' },
-	  //    { url: 'http://flowplayer/hacking.mp4' },
-	  //    { url: 'http://www.images.org/byebye.jpg' }
-	  //    ]
-	  // }			
+  {
+    src:'<?php echo $this->dir_tmpl ?>/flowplayer/FlowPlayerDark.swf',
+    // width: <?php echo $this->video_width ?>, 
+    // height: <?php echo $this->video_height ?>,
+  },
+  
+  // second argument is Flowplayer specific configuration. See full list:
+  // http://flowplayer.org/player/configuration.html
+  {config: { 
+    videoFile: '<?php print $this->urlFor('web', $item) ?>.flv',
+    // videoLink: 'TODO',
+    
+    // playlist?
+    // { playList: [
+    //    { url: 'http://flowplayer.org/skiing.mp4' },
+    //    { url: 'http://flowplayer.org/river.mp4' },
+    //    { url: 'http://flowplayer/hacking.mp4' },
+    //    { url: 'http://www.images.org/byebye.jpg' }
+    //    ]
+    // }      
 
-		autoPlay: false,
-		autoBuffering: true,
-		loop: false,
-		// initialScale: 'scale',
-		initialScale: 'fit',
-		controlBarBackgroundColor:'0x000000',
+    autoPlay: false,
+    autoBuffering: true,
+    loop: false,
+    // initialScale: 'scale',
+    initialScale: 'fit',
+    controlBarBackgroundColor:'0x000000',
 
-		// minimalist vimeo-esque look
-		controlsOverVideo: 'ease',			
-		controlBarBackgroundColor: -1,
-		controlBarGloss: 'low',
-	}} 
+    // minimalist vimeo-esque look
+    controlsOverVideo: 'ease',      
+    controlBarBackgroundColor: -1,
+    controlBarGloss: 'low',
+  }} 
 );
 */

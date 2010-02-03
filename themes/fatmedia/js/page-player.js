@@ -258,15 +258,15 @@ function PagePlayer(oConfigOverride) {
 
     onload: function() {
       if (!this.loaded) {
-		var oTemp = this._data.oLI.getElementsByTagName('a')[0];
-		var oString = oTemp.innerHTML;
-		var oThis = this;
-		oTemp.innerHTML = oString+' <span style="font-size:0.5em"> | Load failed, d\'oh! '+(sm.sandbox.noRemote?' Possible cause: Flash sandbox is denying remote URL access.':(sm.sandbox.noLocal?'Flash denying local filesystem access':'404?'))+'</span>';
-		setTimeout(function(){
-		  oTemp.innerHTML = oString;
-		  // pl.events.finish.apply(oThis); // load next
-		},5000);
-	  } else {
+    var oTemp = this._data.oLI.getElementsByTagName('a')[0];
+    var oString = oTemp.innerHTML;
+    var oThis = this;
+    oTemp.innerHTML = oString+' <span style="font-size:0.5em"> | Load failed, d\'oh! '+(sm.sandbox.noRemote?' Possible cause: Flash sandbox is denying remote URL access.':(sm.sandbox.noLocal?'Flash denying local filesystem access':'404?'))+'</span>';
+    setTimeout(function(){
+      oTemp.innerHTML = oString;
+      // pl.events.finish.apply(oThis); // load next
+    },5000);
+    } else {
         if (this._data.metadata) {
           this._data.metadata.refresh();
         }
@@ -277,12 +277,12 @@ function PagePlayer(oConfigOverride) {
       var d = null;
       if (pl.dragActive || !pl.config.useThrottling) {
         self.updateTime.apply(this);
-  	    if (sm.flashVersion >= 9) {
+        if (sm.flashVersion >= 9) {
           if (pl.config.usePeakData && this.instanceOptions.usePeakData) self.updatePeaks.apply(this);
-	      if (pl.config.useWaveformData && this.instanceOptions.useWaveformData || pl.config.useEQData && this.instanceOptions.useEQData) {
-	        self.updateGraph.apply(this);
-	      }
-	    }
+        if (pl.config.useWaveformData && this.instanceOptions.useWaveformData || pl.config.useEQData && this.instanceOptions.useEQData) {
+          self.updateGraph.apply(this);
+        }
+      }
         if (this._data.metadata) {
           d = new Date();
           if (d && d-self.lastWPExec>500) {
@@ -295,13 +295,13 @@ function PagePlayer(oConfigOverride) {
         d = new Date();
         if (d-self.lastWPExec>500) {
           self.updateTime.apply(this);
-	      if (sm.flashVersion >= 9) {
+        if (sm.flashVersion >= 9) {
             if (pl.config.usePeakData && this.instanceOptions.usePeakData) {
-	          self.updatePeaks.apply(this);
-	        }
-	        if (pl.config.useWaveformData && this.instanceOptions.useWaveformData || pl.config.useEQData && this.instanceOptions.useEQData) {
-		      self.updateGraph.apply(this);
-			}
+            self.updatePeaks.apply(this);
+          }
+          if (pl.config.useWaveformData && this.instanceOptions.useWaveformData || pl.config.useEQData && this.instanceOptions.useEQData) {
+          self.updateGraph.apply(this);
+      }
           }
           if (this._data.metadata) self.refreshMetadata(this);
           this._data.oPosition.style.width = (((this.position/self.getDurationEstimate(this))*100)+'%');
@@ -309,29 +309,29 @@ function PagePlayer(oConfigOverride) {
         }
       }
     }
-	
+  
   } // events{}
 
   this.setPageIcon = function(sDataURL) {
-	if (!self.config.useFavIcon || !self.config.usePeakData || !sDataURL) return false;
+  if (!self.config.useFavIcon || !self.config.usePeakData || !sDataURL) return false;
     var link = document.getElementById('favicon');
     if (!link) {
-	  link = document.createElement('link');
-	  link.id = 'favicon';
-	  link.rel = 'shortcut icon';
-	  link.type = 'image/x-bitmap';
-	  link.href = sDataURL;
-	} else {
+    link = document.createElement('link');
+    link.id = 'favicon';
+    link.rel = 'shortcut icon';
+    link.type = 'image/x-bitmap';
+    link.href = sDataURL;
+  } else {
       link.href = sDataURL;
     }
     document.getElementsByTagName('head')[0].appendChild(link);
   }
 
   this.resetPageIcon = function() {
-	if (!self.config.useFavIcon) return false;
+  if (!self.config.useFavIcon) return false;
     var link = document.getElementById('favicon');
     if (link) {
-	  link.href = '/favicon.ico';
+    link.href = '/favicon.ico';
     }
   }
 
@@ -340,14 +340,14 @@ function PagePlayer(oConfigOverride) {
     var oSpan = o.getElementsByTagName('span');
     oSpan[0].style.marginTop = (13-(Math.floor(15*this.peakData.left))+'px');
     oSpan[1].style.marginTop = (13-(Math.floor(15*this.peakData.right))+'px');
-	// highly experimental
+  // highly experimental
     if (self.config.flashVersion > 8 && self.config.useFavIcon && self.config.usePeakData) {
-	  if (!isOpera) {
-	    self.setPageIcon(self.xbmImages[parseInt(15*this.peakData.left)][parseInt(15*this.peakData.right)]);
-	  } else {
-	self.setPageIcon(self.xbmImages[1+parseInt(14*this.peakData.left)][1+parseInt(14*this.peakData.right)]);
-	  }
-	}
+    if (!isOpera) {
+      self.setPageIcon(self.xbmImages[parseInt(15*this.peakData.left)][parseInt(15*this.peakData.right)]);
+    } else {
+  self.setPageIcon(self.xbmImages[1+parseInt(14*this.peakData.left)][1+parseInt(14*this.peakData.right)]);
+    }
+  }
   }
   
   this.updateGraph = function() {
@@ -360,7 +360,7 @@ function PagePlayer(oConfigOverride) {
         sbC[255-i].style.marginTop = (1+scale+Math.ceil(this.waveformData[i]*-scale))+'px';
       }
     } else {
-	  // eq spectrum
+    // eq spectrum
       var offset = 9;
       for (var i=255; i--;) {
         sbC[255-i].style.marginTop = ((offset*2)-1+Math.ceil(this.eqData[i]*-offset))+'px';
@@ -445,16 +445,16 @@ function PagePlayer(oConfigOverride) {
       self.setPageTitle(thisSound._data.originalTitle);
       if (thisSound == self.lastSound) {
         // ..and was playing (or paused) and isn't in an error state
-		if (thisSound.readyState != 2) {
-		  if (thisSound.playState != 1) {
-			// not yet playing
-			thisSound.play();
-		  } else {
+    if (thisSound.readyState != 2) {
+      if (thisSound.playState != 1) {
+      // not yet playing
+      thisSound.play();
+      } else {
             thisSound.togglePause();
           }
-		} else {
-		  sm._writeDebug('Warning: sound failed to load (security restrictions, 404 or bad format)',2);
-		}
+    } else {
+      sm._writeDebug('Warning: sound failed to load (security restrictions, 404 or bad format)',2);
+    }
       } else {
         // ..different sound
         if (self.lastSound) self.stopSound(self.lastSound);
@@ -552,7 +552,7 @@ function PagePlayer(oConfigOverride) {
     } else {
       self.stopDrag();
     }
-	return false;
+  return false;
   }
   
   this.stopDrag = function(e) {
@@ -607,7 +607,7 @@ function PagePlayer(oConfigOverride) {
 
   this.getDurationEstimate = function(oSound) {
     if (oSound.instanceOptions.isMovieStar) {
-	  return (oSound.duration);
+    return (oSound.duration);
     } else {
       return (!oSound._data.metadata || !oSound._data.metadata.data.givenDuration?oSound.durationEstimate:oSound._data.metadata.data.givenDuration);
     }
@@ -615,185 +615,185 @@ function PagePlayer(oConfigOverride) {
 
   // XBM support
 
-	// xbmDraw.js XBM drawing library
-	// (c)2002 David L. Blackledge
-	// http://David.Blackledge.com
-	// Written April, 2002
-	// You may use this if you keep this copyright notice intact
-	//
-	// See http://David.Blackledge.com/XBMDrawLibrary.html
-	// Some unused functions removed, see site for complete library
+  // xbmDraw.js XBM drawing library
+  // (c)2002 David L. Blackledge
+  // http://David.Blackledge.com
+  // Written April, 2002
+  // You may use this if you keep this copyright notice intact
+  //
+  // See http://David.Blackledge.com/XBMDrawLibrary.html
+  // Some unused functions removed, see site for complete library
 
-	function array_copy(o_array) {
-	 var ret_array = new Array();
-	 if(typeof(ret_array.concat) == "function")
-	  return ret_array.concat(o_array);
-	 for(var j = 0 ; j < o_array.length ; ++j) {
-	  ret_array[ret_array.length] = o_array[j];
-	 }
-	 return ret_array;
-	}
+  function array_copy(o_array) {
+   var ret_array = new Array();
+   if(typeof(ret_array.concat) == "function")
+    return ret_array.concat(o_array);
+   for(var j = 0 ; j < o_array.length ; ++j) {
+    ret_array[ret_array.length] = o_array[j];
+   }
+   return ret_array;
+  }
 
-	function XBMImage_body() {
-	 var bod = "";
-	 for(var i = 0 ; i < this.height ; ++i) {
-	  for(var j = 0 ; j < this.width/8 ; ++j) {
-	   if(typeof(this.data[i]) != "undefined" && typeof(this.data[i][j]) != "undefined") {
-	    // must be reversed to work right, apparently.
-	    var bool = 0;
-	    bool = this.data[i][j];
-	    var hex = (new Number(bool)).toString(16);
-	    if(hex.length == 1)
-	     hex = "0"+hex;
-	    bod += "0x"+hex+",";
-	   } else {
-	    bod += "0x00,";
-	   }
-	  }
-	 }
-	 if(bod.length > 0) // remove trailing comma
-	  bod = bod.substring(0,bod.length-1);
-	 return bod;
-	}
+  function XBMImage_body() {
+   var bod = "";
+   for(var i = 0 ; i < this.height ; ++i) {
+    for(var j = 0 ; j < this.width/8 ; ++j) {
+     if(typeof(this.data[i]) != "undefined" && typeof(this.data[i][j]) != "undefined") {
+      // must be reversed to work right, apparently.
+      var bool = 0;
+      bool = this.data[i][j];
+      var hex = (new Number(bool)).toString(16);
+      if(hex.length == 1)
+       hex = "0"+hex;
+      bod += "0x"+hex+",";
+     } else {
+      bod += "0x00,";
+     }
+    }
+   }
+   if(bod.length > 0) // remove trailing comma
+    bod = bod.substring(0,bod.length-1);
+   return bod;
+  }
 
-	function XBMImage_draw(x,y) {
-	 if(!(x > -1 && x < this.width && y > -1 && y < this.height))
-	  return;
-	 if(typeof(this.data[y]) == "undefined")
-	   this.data[y] = new Array();
-	 var bit = x%8;
-	 var byt = (x-bit)/8;
-	 if(typeof(this.data[y][byt]) == "undefined")
-	   this.data[y][byt] = 0;
-	 this.data[y][byt] |= (0x01<<bit);
-	}
+  function XBMImage_draw(x,y) {
+   if(!(x > -1 && x < this.width && y > -1 && y < this.height))
+    return;
+   if(typeof(this.data[y]) == "undefined")
+     this.data[y] = new Array();
+   var bit = x%8;
+   var byt = (x-bit)/8;
+   if(typeof(this.data[y][byt]) == "undefined")
+     this.data[y][byt] = 0;
+   this.data[y][byt] |= (0x01<<bit);
+  }
 
-	// attempt to do a fast horizontal line algorithm.
-	function XBMImage_drawHLine(x1,y1,x2) {
-	 if(!(y1 > -1 && y1 < this.height))
-	  return;
-	 if(x1 > x2){
-	  var xs = x1;x1=Math.max(0,x2);x2=Math.min(this.width,xs);
-	 }
-	 var filled = 0xFF;
-	 var startbits = x1%8;
-	 var startbyt = (x1-x1%8)/8;
-	 var endbits = 8-x2%8;
-	 var endbyt = (x2-x2%8)/8;
-	 if(startbyt == endbyt) {
-	  this.data[y1][startbyt]|=(filled <<startbits)&(filled>>endbits);
-	  return;
-	 }
-	 for(var i = startbyt+1 ; i < endbyt ; ++i) {
-	  this.data[y1][i] = filled;
-	 }
-	 for(var j=x1; j < (x1+(8-x1%8)) ; ++j)
-	  this.draw(j,y1);
-	 this.data[y1][endbyt] |= (filled >>endbits);
-	}
-	
-	function XBMImage_drawVLine(x1,y1,y2) {
-	 if(!(x1 > -1 && x1 < this.width))
-	  return;
-	 if(y1 > y2){
-	  var ys = y1;y1=Math.max(0,y2);y2=Math.min(this.height,ys);
-	 }
-	 var bit = x1%8;
-	 var byt = (x1-bit)/8;
-	 var bitmask = (0x01<<bit);
-	 for(var y = y1 ; y <= y2 ; ++y)
-	  this.data[y][byt] |= bitmask;
-	}
-	
-	function XBMImage_drawLine(x1,y1,x2,y2) {
-	 if(x1 > x2) {
-	  var xx = x1; x1 = x2; x2 = xx;
-	  var yy = y1; y1 = y2; y2 = yy;
-	 }
-	 var y = y1;
-	 if(y1 == y2)
-	   if(x1 == x2)
-		 return this.draw(x1,y1);
-	   else
-		 return this.drawHLine(x1,y1,x2);
-	 if(x1 == x2) return this.drawVLine(x1,y1,y2);
-	 var slope=(y1-y2)/(x1-x2);
-	 var yint = y1-Math.floor(slope*x1); // y-intercept
-	 for(var x = x1; x < x2; ++x) {
-	  if(slope > 0) { //y1<y2 (top to bottom)
-	   for(y = Math.floor(slope*x)+yint ; y < (Math.floor(slope*(x+1))+yint) ; ++y) {
-	    this.draw(x,y);
-	   }
-	   if(Math.floor(slope*x) == Math.floor(slope*(x+1)))
-	    this.draw(x,y);
-	   if(x==x2-1) {
-	    for(y ; y <= y2 ; ++y) {
-	     this.draw(x,y);
-	    }  
-	   }
-	  } else { //y1>y2 (bottom to top)
-	   for(y = Math.floor(slope*x)+yint ; y > (Math.floor(slope*(x+1))+yint) ; --y) {
-	    this.draw(x,y);
-	   }
-	   if(Math.floor(slope*x) == Math.floor(slope*(x+1)))
-	    this.draw(x,y);
-	   if(x==x2-1) {
-	    for(y ; y >= y2 ; --y) {
-	     this.draw(x,y);
-	    }  
-	   }
-	  }
-	 }
-	 return null;
-	}
+  // attempt to do a fast horizontal line algorithm.
+  function XBMImage_drawHLine(x1,y1,x2) {
+   if(!(y1 > -1 && y1 < this.height))
+    return;
+   if(x1 > x2){
+    var xs = x1;x1=Math.max(0,x2);x2=Math.min(this.width,xs);
+   }
+   var filled = 0xFF;
+   var startbits = x1%8;
+   var startbyt = (x1-x1%8)/8;
+   var endbits = 8-x2%8;
+   var endbyt = (x2-x2%8)/8;
+   if(startbyt == endbyt) {
+    this.data[y1][startbyt]|=(filled <<startbits)&(filled>>endbits);
+    return;
+   }
+   for(var i = startbyt+1 ; i < endbyt ; ++i) {
+    this.data[y1][i] = filled;
+   }
+   for(var j=x1; j < (x1+(8-x1%8)) ; ++j)
+    this.draw(j,y1);
+   this.data[y1][endbyt] |= (filled >>endbits);
+  }
+  
+  function XBMImage_drawVLine(x1,y1,y2) {
+   if(!(x1 > -1 && x1 < this.width))
+    return;
+   if(y1 > y2){
+    var ys = y1;y1=Math.max(0,y2);y2=Math.min(this.height,ys);
+   }
+   var bit = x1%8;
+   var byt = (x1-bit)/8;
+   var bitmask = (0x01<<bit);
+   for(var y = y1 ; y <= y2 ; ++y)
+    this.data[y][byt] |= bitmask;
+  }
+  
+  function XBMImage_drawLine(x1,y1,x2,y2) {
+   if(x1 > x2) {
+    var xx = x1; x1 = x2; x2 = xx;
+    var yy = y1; y1 = y2; y2 = yy;
+   }
+   var y = y1;
+   if(y1 == y2)
+     if(x1 == x2)
+     return this.draw(x1,y1);
+     else
+     return this.drawHLine(x1,y1,x2);
+   if(x1 == x2) return this.drawVLine(x1,y1,y2);
+   var slope=(y1-y2)/(x1-x2);
+   var yint = y1-Math.floor(slope*x1); // y-intercept
+   for(var x = x1; x < x2; ++x) {
+    if(slope > 0) { //y1<y2 (top to bottom)
+     for(y = Math.floor(slope*x)+yint ; y < (Math.floor(slope*(x+1))+yint) ; ++y) {
+      this.draw(x,y);
+     }
+     if(Math.floor(slope*x) == Math.floor(slope*(x+1)))
+      this.draw(x,y);
+     if(x==x2-1) {
+      for(y ; y <= y2 ; ++y) {
+       this.draw(x,y);
+      }  
+     }
+    } else { //y1>y2 (bottom to top)
+     for(y = Math.floor(slope*x)+yint ; y > (Math.floor(slope*(x+1))+yint) ; --y) {
+      this.draw(x,y);
+     }
+     if(Math.floor(slope*x) == Math.floor(slope*(x+1)))
+      this.draw(x,y);
+     if(x==x2-1) {
+      for(y ; y >= y2 ; --y) {
+       this.draw(x,y);
+      }  
+     }
+    }
+   }
+   return null;
+  }
 
-	function XBMImage_drawBoxFilled(x1,y1,x2,y2) {
-	 for(var y = y1; y <= y2; ++y)
-	  this.drawHLine(x1,y,x2);
-	}
+  function XBMImage_drawBoxFilled(x1,y1,x2,y2) {
+   for(var y = y1; y <= y2; ++y)
+    this.drawHLine(x1,y,x2);
+  }
 
-	function XBMImage_getXBM() {
-	 return this.header + this.body() + this.footer;
-	}
+  function XBMImage_getXBM() {
+   return this.header + this.body() + this.footer;
+  }
 
-	function XBMImage_setXBM(str){
-	 var xbmdata = str.substring(str.indexOf("{")+1,str.lastIndexOf("}"));
-	 var a_data = xbmdata.split(",");
-	 for(var j = 0 ; j < this.height ; ++j) {
-	  this.data[j] = new Array();
-	  for(var i = 0 ; i < Math.floor(this.width/8) ; ++i) {
-	   var a_idx = i+j*(Math.floor(this.width/8));
-	   if(a_idx < a_data.length)
-	    this.data[j][i] = (new Number(parseInt(a_data[a_idx],16))).valueOf();//parseInt(a_data[a_idx]);
-	  }
-	 }
-	}
+  function XBMImage_setXBM(str){
+   var xbmdata = str.substring(str.indexOf("{")+1,str.lastIndexOf("}"));
+   var a_data = xbmdata.split(",");
+   for(var j = 0 ; j < this.height ; ++j) {
+    this.data[j] = new Array();
+    for(var i = 0 ; i < Math.floor(this.width/8) ; ++i) {
+     var a_idx = i+j*(Math.floor(this.width/8));
+     if(a_idx < a_data.length)
+      this.data[j][i] = (new Number(parseInt(a_data[a_idx],16))).valueOf();//parseInt(a_data[a_idx]);
+    }
+   }
+  }
 
-	function XBMImage(width,height,name) {
-	 this.name = name;
-	 this.width = width+((width%8)>0?(8-(width%8)):0); //expand to a multiple of 8
-	 this.height = height;
-	 this.header = "#define "+name+"_width "+this.width+"\n"+
-	   "#define "+name+"_height "+this.height+"\n"+
-	   "static char "+name+"_bits[] = {\n";
-	 this.footer = "};";
-	 this.data = new Array(this.height);
-	 for(var i = 0 ; i < this.data.length ; ++i) {
-	  this.data[i] = new Array(this.width);
-	  for(var j = 0 ; j < this.data[i].length ; ++j) {
-	   this.data[i][j] = 0;
-	  }
-	 }
-	 this.frames = new Array(); // store copies of this.data;
-	 this.body = XBMImage_body;
-	 this.draw = XBMImage_draw;
-	 this.drawLine = XBMImage_drawLine;
-	 this.drawHLine = XBMImage_drawHLine;
-	 this.drawVLine = XBMImage_drawVLine;
-	 this.drawBoxFilled = XBMImage_drawBoxFilled;
-	 this.getXBM = XBMImage_getXBM;
-	 this.setXBM = XBMImage_setXBM;
-	 this.xbm = this.getXBM();
+  function XBMImage(width,height,name) {
+   this.name = name;
+   this.width = width+((width%8)>0?(8-(width%8)):0); //expand to a multiple of 8
+   this.height = height;
+   this.header = "#define "+name+"_width "+this.width+"\n"+
+     "#define "+name+"_height "+this.height+"\n"+
+     "static char "+name+"_bits[] = {\n";
+   this.footer = "};";
+   this.data = new Array(this.height);
+   for(var i = 0 ; i < this.data.length ; ++i) {
+    this.data[i] = new Array(this.width);
+    for(var j = 0 ; j < this.data[i].length ; ++j) {
+     this.data[i][j] = 0;
+    }
+   }
+   this.frames = new Array(); // store copies of this.data;
+   this.body = XBMImage_body;
+   this.draw = XBMImage_draw;
+   this.drawLine = XBMImage_drawLine;
+   this.drawHLine = XBMImage_drawHLine;
+   this.drawVLine = XBMImage_drawVLine;
+   this.drawBoxFilled = XBMImage_drawBoxFilled;
+   this.getXBM = XBMImage_getXBM;
+   this.setXBM = XBMImage_setXBM;
+   this.xbm = this.getXBM();
   }
 
   this.createXBMData = function() {
@@ -815,12 +815,12 @@ function PagePlayer(oConfigOverride) {
   }
 
   if (this.config.useFavIcon) {
-	if (isFirefox || isOpera) {
-	  this.createXBMData();
-	} else {
-	  // browser doesn't support doing this
-	  this.config.useFavIcon = false;
-	}
+  if (isFirefox || isOpera) {
+    this.createXBMData();
+  } else {
+    // browser doesn't support doing this
+    this.config.useFavIcon = false;
+  }
   }
 
   this.init = function() {

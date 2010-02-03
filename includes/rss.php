@@ -8,37 +8,37 @@ header("Expires: Thu, 25 Oct 2007 11:00:00 GMT"); // remember the F.A.T. Incorpo
 print "<?xml version=\"1.0\"?>\n"; // php tries to interpret as an open tag
 ?>
 <rss version="2.0">
-	<channel>
-		<title><?php print FF_NAME ?></title>
-		<link><?php print FF_LINK ?></link>
-		<description><?php print FF_ANTI_FLICKR_MSG // FIXME make a config option ?></description>
-		<language>en-us<?php // TODO in8l me ?></language>
-		<generator>FuckFlickr</generator>
+  <channel>
+    <title><?php print FF_NAME ?></title>
+    <link><?php print FF_LINK ?></link>
+    <description><?php print FF_ANTI_CLOUD_MSG // FIXME make a config option ?></description>
+    <language>en-us<?php // TODO in8l me ?></language>
+    <generator>FAT Media</generator>
 <?php // not indented so the raw XML looks nice 
-		foreach($this->ff_items as $item):
+    foreach($this->ff_items as $item):
 
-			$item = str_replace('//','/',$item); // bug in RSS feed collection, FIXME
-			$filename = basename($item);			
-			$dirname = cleanDirname($item);
-			$raw_dir = dirname(cleanDirname($item)).'/';
-			$dir = str_replace(FF_DATA_DIR, '', $raw_dir); // w/o the /data/
-			$itemURL = $this->urlFor('anchor', $filename, $dir); /* nasty, should fix anchor urlFor... */
+      $item = str_replace('//','/',$item); // bug in RSS feed collection, FIXME
+      $filename = basename($item);      
+      $dirname = cleanDirname($item);
+      $raw_dir = dirname(cleanDirname($item)).'/';
+      $dir = str_replace(FF_DATA_DIR, '', $raw_dir); // w/o the /data/
+      $itemURL = $this->urlFor('anchor', $filename, $dir); /* nasty, should fix anchor urlFor... */
 
 ?>
-		<item>
-			<guid><?php print $itemURL; ?></guid>
-			<link><?php print $itemURL ?></link>
-			<title><?php print $filename; ?></title>
-			<pubDate><?php print date(DATE_RFC822, filemtime($item)); // FIME ?></pubDate>
+    <item>
+      <guid><?php print $itemURL; ?></guid>
+      <link><?php print $itemURL ?></link>
+      <title><?php print $filename; ?></title>
+      <pubDate><?php print date(DATE_RFC822, filemtime($item)); // FIME ?></pubDate>
 <?php /*
-				<enclosure type="video/quicktime" url="http://www.rocketboom.com/video/rb_08_mar_28.mov" length="25512412" />
-				<media:content isDefault="true" type="video/quicktime" url="http://www.rocketboom.com/video/rb_08_mar_28.mov" fileSize="25512412" /><media:rating>nonadult</media:rating> 
+        <enclosure type="video/quicktime" url="http://www.rocketboom.com/video/rb_08_mar_28.mov" length="25512412" />
+        <media:content isDefault="true" type="video/quicktime" url="http://www.rocketboom.com/video/rb_08_mar_28.mov" fileSize="25512412" /><media:rating>nonadult</media:rating> 
 */?>
-			<description><![CDATA[
-				<a href="<?php print $this->urlFor('original', $filename, $raw_dir) ?>" title="<?php print $filename ?>"><img src="<?php print $this->urlFor('thumb', $filename, $raw_dir) ?>" alt="<?php print $filename ?>" border="0" /></a>
-				<p><?php print wordWrap($this->dir_info[$this->dir_name]['images'][$item]['desc'], 15) ?></p>]]>
-			</description>
-		</item>
-		<?php endforeach; ?>
-	</channel>
+      <description><![CDATA[
+        <a href="<?php print $this->urlFor('original', $filename, $raw_dir) ?>" title="<?php print $filename ?>"><img src="<?php print $this->urlFor('thumb', $filename, $raw_dir) ?>" alt="<?php print $filename ?>" border="0" /></a>
+        <p><?php print wordWrap($this->dir_info[$this->dir_name]['images'][$item]['desc'], 15) ?></p>]]>
+      </description>
+    </item>
+    <?php endforeach; ?>
+  </channel>
 </rss>
