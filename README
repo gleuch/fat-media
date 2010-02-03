@@ -8,16 +8,14 @@
     \/_/\/_/ \/_/\/_/\/_/ \/_/\/_/    \/_/ \/_/\/____/\/__,_ /\/_/\/__/\/_/
 
 
-______________________________________________________________________-----
 
-Based on previous work on FAT Media <http://fatmedia.com>, originally
-written by Jamie Wilkinson <http://jamiedubs.com>, 
-Theo Watson <http://muonics.net>, and Greg Leuch <http://gleuch.com>.
+Lightweight, narc-free image/video/audio gallery software -- host your own!
 
-A F.A.T. Lab Production <http://fffff.at>.
+Based on FuckFlickr: http://fffff.at/fuckflickr-info
 
-______________________________________________________________________-----
+-- WARNING: alpha-stage software -- under active development -- 
 
+__________________________________________________________________________
 
 Installation
   1. Unzip and upload the “fat-media” directory to your server.
@@ -31,6 +29,36 @@ Bonus:
   5. Customize config.php to your liking and create/edit your theme.
 
 
-______________________________________________________________________-----
+__________________________________________________________________________
+TODO
+
+essentials
+- code cleanup
+  * theme helpers
+  * cleaner image/audio/video
+  * config?
+- display modes
+  * main gallery mode: blending image, audio, video
+  * audio-only
+  * video-onl
+- 404 / general error page
+- condense javascript if possible
+
+bonus
+- EXIF photo data
+- in-place ajax title/desc/tag editing (ghetto authentication)
+- kopyfamo watermarking
+- translation -- put strings in the config file (?)
+- pimper RSS feeds
+
+
+__________________________________________________________________________
+AUTHORS
+
+Theo Watson - http://muonics.net
+Jamie Wilkinson - http://jamiedubs.com
+Greg Leuch - http://gleuch.com
+Matt Katz - http://morelightmorelight.com
+
 
 
